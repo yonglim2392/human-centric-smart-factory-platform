@@ -8,14 +8,14 @@
 ---
 🎯 Demo Checkpoints
 
-✅ **Point 1. 무결성 보장 데이터 파이프라인** *(Zero Data Loss)*
-초 단위 스트리밍 처리 및 DLQ를 활용한 완벽한 장애 격리·재처리
+  ✅ **Point 1. 무결성 보장 데이터 파이프라인** *(Zero Data Loss)*
+  초 단위 스트리밍 처리 및 DLQ를 활용한 완벽한 장애 격리·재처리
 
-✅ **Point 2. 예측형 인력 최적화** *(Predictive Optimization)*
-과거 데이터 기반 피로도 회귀 분석 및 AI 조합 추천 시뮬레이션
+  ✅ **Point 2. 예측형 인력 최적화** *(Predictive Optimization)*
+  과거 데이터 기반 피로도 회귀 분석 및 AI 조합 추천 시뮬레이션
 
-✅ **Point 3. 비용 효율적 분석 환경** *(Serverless & FinOps)*
-데이터 레이크(Athena) 기반 Ad-hoc 쿼리 분석 및 실시간 인프라 비용 통제 체계
+  ✅ **Point 3. 비용 효율적 분석 환경** *(Serverless & FinOps)*
+  데이터 레이크(Athena) 기반 Ad-hoc 쿼리 분석 및 실시간 인프라 비용 통제 체계
 
 ---
 ## 🚀 Key Features
