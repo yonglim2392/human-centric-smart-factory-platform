@@ -61,9 +61,11 @@
 
 ```text
 ├── terraform/          # IaC (Infrastructure as Code) 정적 자원 정의
-├── src/
+├── lamda_backup/
 │   ├── producers/      # IoT 센서 데이터 시뮬레이터 (Data Generation)
 │   ├── consumers/      # Kinesis/Lambda 데이터 처리 로직
 │   └── analytics/      # 분석 및 추천 알고리즘 (Potential Score)
+├── app/                # SCADA 관제 대시보드 (Frontend) & 데이터 서빙 API 서버 (Backend)
+│   # 클라이언트 요청을 받아 Aurora DB 및 S3 데이터를 조회·가공하여 반환
 ├── docs/               # 기획안 및 아키텍처 다이어그램
 └── README.md
