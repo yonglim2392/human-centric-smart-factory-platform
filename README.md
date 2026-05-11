@@ -16,7 +16,7 @@
 ---
 
 ## 🏗 System Architecture
-![System Architecture](./docs/AWS_아키텍처.png)
+![System Architecture](./docs/images/AWS_아키텍처.png)
 본 시스템은 데이터의 신뢰성과 분석 속도를 보장하기 위해 **메달리온 아키텍처**를 따릅니다.
 
 1. **Bronze (Raw)**: Kinesis를 통해 인입된 원천 JSON 로그를 S3에 불변(Immutable) 상태로 저장.
@@ -26,7 +26,7 @@
 ---
 
 ## 📊 Data Payload Structure
-![Data Payload Structure](./docs/데이터흐름.png)
+![Data Payload Structure](./docs/images/데이터흐름.png)
 실시간으로 수집되는 핵심 데이터 모델입니다.
 
 | Field | Description | Business Logic |
