@@ -5,7 +5,8 @@
 
 ---
 [📺 프로젝트 시연 영상 보러가기 (Google Drive)](https://drive.google.com/file/d/1xm1O9PbyzdicAZqnCw4m8yZFMN8BK1_-/view?usp=sharing)
-## 🎯 Demo Checkpoints
+---
+🎯 Demo Checkpoints
 
 ✅ **Point 1. 무결성 보장 데이터 파이프라인** *(Zero Data Loss)*
 초 단위 스트리밍 처리 및 DLQ를 활용한 완벽한 장애 격리·재처리
