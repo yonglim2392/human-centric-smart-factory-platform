@@ -15,8 +15,8 @@
 
 ✅ **Point 3. 비용 효율적 분석 환경** *(Serverless & FinOps)*
 데이터 레이크(Athena) 기반 Ad-hoc 쿼리 분석 및 실시간 인프라 비용 통제 체계
----
 
+---
 ## 🚀 Key Features
 
 - **Human-Centric Monitoring**: 작업자의 실시간 숙련도와 체력 감쇄율(Fatigue Model)을 데이터화하여 분석.
