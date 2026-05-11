@@ -1,11 +1,10 @@
 # SCADA 기반 실시간 생산 모니터링 및 선제적 배치 최적화 플랫폼
-
-[📺 프로젝트 시연 영상 보러가기 (Google Drive)](https://drive.google.com/file/d/1xm1O9PbyzdicAZqnCw4m8yZFMN8BK1_-/view?usp=sharing)
-
 > **Human-Centric Smart Factory with AWS Serverless & Medallion Architecture**
 
 본 프로젝트는 수작업 의존도가 높은 노동 집약적 제조 현장을 위해 설계된 **실시간 데이터 파이프라인 및 지능형 의사결정 지원 시스템**입니다. 단순 관제를 넘어 작업자의 피로도와 설비 상태를 실시간으로 분석하여 사고를 예방하고 공정 배치를 최적화하는 '선제적 대응(Prescriptive)' 플랫폼을 지향합니다.
 
+---
+[📺 프로젝트 시연 영상 보러가기 (Google Drive)](https://drive.google.com/file/d/1xm1O9PbyzdicAZqnCw4m8yZFMN8BK1_-/view?usp=sharing)
 ---
 
 ## 🚀 Key Features
