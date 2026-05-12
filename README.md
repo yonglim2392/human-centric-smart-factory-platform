@@ -10,22 +10,8 @@
 ### 🎯 Demo Checkpoints
 
   ✅ **Point 1. 무결성 보장 데이터 파이프라인** *(Zero Data Loss)*
-  초 단위 스트리밍 처리 및 DLQ를 활용한 완벽한 장애 격리·재처리
-
   ✅ **Point 2. 예측형 인력 최적화** *(Predictive Optimization)*
-  과거 데이터 기반 피로도 회귀 분석 및 AI 조합 추천 시뮬레이션
-
   ✅ **Point 3. 비용 효율적 분석 환경** *(Serverless & FinOps)*
-  데이터 레이크(Athena) 기반 Ad-hoc 쿼리 분석 및 실시간 인프라 비용 통제 체계
-
----
-## 🚀 Key Features
-
-- **Human-Centric Monitoring**: 작업자의 실시간 숙련도와 체력 감쇄율(Fatigue Model)을 데이터화하여 분석.
-- **Safety Interlock**: 설비 부하(`current_amp`) 및 공정 소요 시간(`duration`) 이상 감지 시 즉각적인 안전 알림 및 제어 로직 제공.
-- **Medallion Architecture**: Raw 데이터부터 비즈니스 인사이트까지 3단계(Bronze, Silver, Gold) 데이터 정제 파이프라인 구축.
-- **Serverless Scalability**: AWS Kinesis, Lambda 기반의 완전 서버리스 아키텍처로 트래픽 변화에 유연하게 대응하고 비용 최적화.
-- **IaC (Infrastructure as Code)**: Terraform을 통한 인프라 프로비저닝 자동화로 신규 공정 확산성 확보.
 
 ---
 ## 🎯 Key Achievements
@@ -41,7 +27,6 @@
 - **장애 격리 및 복구 (Fault Tolerance)**: 이상 데이터(Poison Pill) 유입 시 파이프라인 중단을 막기 위해 **Amazon SQS(DLQ)**로 격리하는 구조를 설계했으며, AWS Step Functions 백오프(BackoffRate=2.0) 재시도 로직과 UI 기반 원클릭 재처리(Replay) 환경을 구현했습니다.
 
 ### 3. 💾 메달리온 아키텍처 기반 데이터 레이크 및 성능 최적화
-- **Medallion Architecture (Bronze-Silver-Gold)** 도입으로 실시간 원천 데이터(Raw)부터 비즈니스 인사이트 창출까지 3단계 정제 파이프라인을 구축했습니다.
 - **비용 및 쿼리 성능 최적화 (FinOps)**: Kinesis Data Firehose를 통해 실시간 수집된 대규모 JSON 로그를 **Parquet 포맷으로 압축 변환**하여 Amazon S3에 적재했습니다.
 - **정량적 성과**: 결과적으로 데이터 저장 공간을 **80% 절감 (50MB → 10MB)**하고, **Amazon Athena 쿼리 스캔 속도를 6.5배 향상 (5.2s → 0.8s)** 시켰습니다.
 - **네트워크 보안 최적화**: VPC Endpoints (PrivateLink)를 적극 활용하여 S3, CloudWatch, Kinesis 등 주요 AWS 서비스 접근 시 퍼블릭 인터넷 구간을 거치지 않는 격리된 프라이빗 네트워크 환경을 구축했습니다.
@@ -67,6 +52,18 @@
 
 ---
 
+## 🧠 핵심 알고리즘: AI 기반 예측형 인력 최적화
+
+사후 대응(Reactive)에 머무는 기존 스마트팩토리(Level 2)를 넘어, 데이터를 기반으로 미래를 예측하고 제어하는 **최적화 단계(Level 4)**를 실현했습니다.
+
+- **3차원 지표 결합 분석 (Potential Score 산출)**:
+  - `숙련도 (Learning Curve)`: 작업자 과거 이력 기반 생산성 예측
+  - `피로도 (Fatigue)`: 가동 시간 누적에 따른 집중력 및 체력 저하 선형 회귀 분석
+  - `공정 난이도`: 기준 시간(SMV) 및 공정 내 이상치 발생 확률 평가
+- **Human-in-the-loop (시뮬레이션 UI)**: 관리자가 대시보드에서 드래그 앤 드롭으로 가상 인력을 재배치하면, 시스템이 즉각적인 생산량 증감률(ROI)을 시뮬레이션하여 최적의 의사결정을 돕습니다.
+
+---
+
 ## 📊 Data Payload Structure
 ![Data Payload Structure](./docs/images/데이터흐름.png)
 실시간으로 수집되는 핵심 데이터 모델입니다.
@@ -78,18 +75,6 @@
 | `status` | 공정 상태 (START/END) | 실시간 생산성 집계 및 지연 확인 |
 | `current_amp` | 설비 전류 부하 | **끼임/충돌 등 산업재해 징후 탐지** |
 | `duration` | 공정 소요 시간 | **작업자 집중력 저하 및 피로도 판단** |
-
----
-
-## 🧠 핵심 알고리즘: AI 기반 예측형 인력 최적화
-
-사후 대응(Reactive)에 머무는 기존 스마트팩토리(Level 2)를 넘어, 데이터를 기반으로 미래를 예측하고 제어하는 **최적화 단계(Level 4)**를 실현했습니다.
-
-- **3차원 지표 결합 분석 (Potential Score 산출)**:
-  - `숙련도 (Learning Curve)`: 작업자 과거 이력 기반 생산성 예측
-  - `피로도 (Fatigue)`: 가동 시간 누적에 따른 집중력 및 체력 저하 선형 회귀 분석
-  - `공정 난이도`: 기준 시간(SMV) 및 공정 내 이상치 발생 확률 평가
-- **Human-in-the-loop (시뮬레이션 UI)**: 관리자가 대시보드에서 드래그 앤 드롭으로 가상 인력을 재배치하면, 시스템이 즉각적인 생산량 증감률(ROI)을 시뮬레이션하여 최적의 의사결정을 돕습니다.
 
 ---
 
