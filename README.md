@@ -84,8 +84,8 @@
 └── README.md
 
 ---
-
 ## 🔗 Other Link
-[Notion]([https://drive.google.com/file/d/1xm1O9PbyzdicAZqnCw4m8yZFMN8BK1_-/view?usp=sharing](https://www.notion.so/personal-project-35dc634a7dad806993bdf884e0669aaa?source=copy_link))
+---
+[Notion](https://www.notion.so/personal-project-35dc634a7dad806993bdf884e0669aaa?source=copy_link
 
 ---
