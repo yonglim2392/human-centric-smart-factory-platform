@@ -1,4 +1,6 @@
-# SCADA 기반 실시간 생산 모니터링 및 선제적 배치 최적화 플랫폼
+# Beyond Smart Factory
+## 사람까지 이해하는 스마트팩토리
+### 실시간 작업자 데이터 기반 AI 의사결정 플랫폼
 > **Human-Centric Smart Factory with AWS Serverless & Medallion Architecture**
 
 본 프로젝트는 수작업 의존도가 높은 노동 집약적 제조 현장을 위해 설계된 **실시간 데이터 파이프라인 및 지능형 의사결정 지원 시스템**입니다. 단순 관제를 넘어 작업자의 피로도와 설비 상태를 실시간으로 분석하여 사고를 예방하고 공정 배치를 최적화하는 '선제적 대응(Prescriptive)' 플랫폼을 지향합니다.
@@ -25,6 +27,25 @@
 - **Medallion Architecture**: Raw 데이터부터 비즈니스 인사이트까지 3단계(Bronze, Silver, Gold) 데이터 정제 파이프라인 구축.
 - **Serverless Scalability**: AWS Kinesis, Lambda 기반의 완전 서버리스 아키텍처로 트래픽 변화에 유연하게 대응하고 비용 최적화.
 - **IaC (Infrastructure as Code)**: Terraform을 통한 인프라 프로비저닝 자동화로 신규 공정 확산성 확보.
+
+---
+## 🎯 Key Achievements
+
+### 1. 🚀 AWS Serverless 기반 인프라 최적화 (TCO 절감)
+- **Zero Idle Cost**: 공장 가동 시간(09:00~18:00) 외 유휴 시간에 비용이 발생하지 않도록 **Amazon ECS Fargate**와 **Aurora Serverless v2**를 도입하여 클라우드 자원을 효율적으로 운영했습니다.
+- **월 유지비용 극대화**: 레거시 MES 대비 인프라 유지 관리 비용을 극적으로 절감하여 **월 예상 운영 비용 $102.8** 수준의 고효율 시스템을 완성했습니다.
+- **IaC(Infrastructure as Code) 구축**: **Terraform**을 활용해 인프라 전체를 코드로 관리하며, 신규 생산 라인 추가 시 **10분 내에 동일한 아키텍처 환경을 완벽하게 프로비저닝 및 복제 전개**할 수 있는 파이프라인을 구축했습니다.
+
+### 2. ⚡ 대용량 실시간 데이터의 안정적 처리 및 무결성 보장 (Zero Data Loss)
+- **고가용성 스트리밍 아키텍처**: 초당 수백 건의 IoT 로그를 **Amazon Kinesis Data Streams**로 버퍼링하여 예측 불가능한 트래픽 스파이크 시에도 시스템 다운타임 없는 안정성을 확보했습니다.
+- **데이터 멱등성(Idempotency) 보장**: 네트워크 지연에 따른 At-least-once 전송 중복 문제를 방어하기 위해, DB 레이어에서 **UPSERT Pattern (ON DUPLICATE KEY)** 및 Atomic Aggregation을 적용하여 데이터 정합성을 확보했습니다.
+- **장애 격리 및 복구 (Fault Tolerance)**: 이상 데이터(Poison Pill) 유입 시 파이프라인 중단을 막기 위해 **Amazon SQS(DLQ)**로 격리하는 구조를 설계했으며, AWS Step Functions 백오프(BackoffRate=2.0) 재시도 로직과 UI 기반 원클릭 재처리(Replay) 환경을 구현했습니다.
+
+### 3. 💾 메달리온 아키텍처 기반 데이터 레이크 및 성능 최적화
+- **Medallion Architecture (Bronze-Silver-Gold)** 도입으로 실시간 원천 데이터(Raw)부터 비즈니스 인사이트 창출까지 3단계 정제 파이프라인을 구축했습니다.
+- **비용 및 쿼리 성능 최적화 (FinOps)**: Kinesis Data Firehose를 통해 실시간 수집된 대규모 JSON 로그를 **Parquet 포맷으로 압축 변환**하여 Amazon S3에 적재했습니다.
+- **정량적 성과**: 결과적으로 데이터 저장 공간을 **80% 절감 (50MB → 10MB)**하고, **Amazon Athena 쿼리 스캔 속도를 6.5배 향상 (5.2s → 0.8s)** 시켰습니다.
+- **네트워크 보안 최적화**: VPC Endpoints (PrivateLink)를 적극 활용하여 S3, CloudWatch, Kinesis 등 주요 AWS 서비스 접근 시 퍼블릭 인터넷 구간을 거치지 않는 격리된 프라이빗 네트워크 환경을 구축했습니다.
 
 ---
 
