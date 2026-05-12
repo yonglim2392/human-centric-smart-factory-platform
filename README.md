@@ -51,11 +51,20 @@
 
 ## 🏗 System Architecture
 ![System Architecture](./docs/images/AWS_아키텍처.png)
-본 시스템은 데이터의 신뢰성과 분석 속도를 보장하기 위해 **메달리온 아키텍처**를 따릅니다.
 
+### 🔄 메달리온 아키텍처
 1. **Bronze (Raw)**: Kinesis를 통해 인입된 원천 JSON 로그를 S3에 불변(Immutable) 상태로 저장.
 2. **Silver (Refined)**: Lambda 전처리를 통해 이상치를 보정하고, 쿼리 성능 최적화를 위해 Parquet 포맷으로 변환. (Athena 활용)
 3. **Gold (Insight)**: 일일 정산 및 작업자 피로도 분석 결과가 반영된 데이터 마트. Aurora Serverless를 통해 대시보드 및 AI 엔진에 서빙.
+
+### 🔄 Lambda 기반 듀얼 파이프라인 (Hot & Cold Path)
+1. **Hot Path (Real-Time Processing)**
+   - `Kinesis` ➔ `Lambda` ➔ `Aurora Serverless v2`
+   - 실시간 병목 공정(WIP 과부하) 식별 및 작업자 이상 패턴(피로도 누적, 무리한 작업 등) 즉각 탐지 및 알림.
+2. **Cold Path (Batch Processing & Archiving)**
+   - `Firehose` ➔ `S3 (Parquet)` ➔ `Step Functions` ➔ `Athena`
+   - 일일/주간 단위 숙련도 향상률 및 체력 감쇄 선형 회귀 분석.
+   - 7일 경과 데이터는 S3 Archive 레이어로 이관(Data Archiver)하여 DB 부하를 차단하고 장기 보관 컴플라이언스를 준수했습니다.
 
 ---
 
@@ -73,21 +82,37 @@
 
 ---
 
-## 🛠 Tech Stack
+## 🧠 핵심 알고리즘: AI 기반 예측형 인력 최적화
 
-- **Cloud**: AWS (Kinesis Data Streams, Lambda, S3, Aurora Serverless, Athena, EventBridge)
-- **Language**: Node.js / Python
-- **IaC**: Terraform
-- **Database**: Amazon Aurora (MySQL), S3 Data Lake
-- **Analytics**: AWS Glue, Step Functions
+사후 대응(Reactive)에 머무는 기존 스마트팩토리(Level 2)를 넘어, 데이터를 기반으로 미래를 예측하고 제어하는 **최적화 단계(Level 4)**를 실현했습니다.
+
+- **3차원 지표 결합 분석 (Potential Score 산출)**:
+  - `숙련도 (Learning Curve)`: 작업자 과거 이력 기반 생산성 예측
+  - `피로도 (Fatigue)`: 가동 시간 누적에 따른 집중력 및 체력 저하 선형 회귀 분석
+  - `공정 난이도`: 기준 시간(SMV) 및 공정 내 이상치 발생 확률 평가
+- **Human-in-the-loop (시뮬레이션 UI)**: 관리자가 대시보드에서 드래그 앤 드롭으로 가상 인력을 재배치하면, 시스템이 즉각적인 생산량 증감률(ROI)을 시뮬레이션하여 최적의 의사결정을 돕습니다.
 
 ---
 
-## 💡 Business Value
+## 🛠 사용 기술 (Tech Stack)
 
-- **Smart Factory Level 4**: 사후 대응(Level 3)을 넘어 데이터 기반의 예측 및 선제적 제어가 가능한 지능형 공정 구현.
-- **Cost Efficiency**: Parquet 도입 및 배치 처리 최적화를 통해 데이터 저장 비용 약 80% 절감 및 분석 성능 6.5배 향상.
-- **Safety First**: SPC 사고와 같은 비극을 방지하기 위해 '사람의 실수'를 시스템이 보완하는 지능형 안전망 제공.
+| Category | Technologies |
+| :--- | :--- |
+| **Compute / Logic** | AWS Lambda, Amazon ECS (Fargate), AWS Step Functions |
+| **Data Streaming** | Amazon Kinesis Data Streams, Kinesis Data Firehose |
+| **Data Store / Query** | Amazon Aurora Serverless v2 (MySQL), Amazon S3, Amazon Athena |
+| **Messaging / Event** | Amazon SQS (DLQ), Amazon EventBridge |
+| **Network & Security** | Amazon VPC, VPC Endpoints (PrivateLink), AWS Client VPN, IAM |
+| **IaC / DevOps** | Terraform |
+| **Language** | Node.js, Python, SQL |
+
+---
+
+## 🚀 향후 고도화 로드맵 (Future Evolution)
+
+- **Phase 2 (Scaling)**: 확장 라인 대응을 위해 AWS EMR (Spark) 기반 대용량 로그 분산 처리 파이프라인 연계 및 AWS IoT Core 도입.
+- **Phase 3 (Intelligence)**: 현재의 휴리스틱(Rule-based) 분석 모델을 넘어, Amazon SageMaker를 활용한 강화학습(RL) 기반 작업자 배정 최적화 알고리즘으로 고도화.
+- **Phase 4 (Autonomous)**: IoT Greengrass를 활용한 엣지 컴퓨팅 기반 초저지연 현장 자율 제어 시스템 구현.
 
 ---
 
@@ -105,7 +130,5 @@
 └── README.md
 
 ---
-## 🔗 Other Link
----
-[Notion](https://www.notion.so/personal-project-35dc634a7dad806993bdf884e0669aaa?source=copy_link)
----
+
+> 💡 **Project Contact & Author** > - **YONG (Yongrim Cho)** | 📧 limetry2392@gmail.com
