@@ -127,7 +127,7 @@
 │   # 클라이언트 요청을 받아 Aurora DB 및 S3 데이터를 조회·가공하여 반환
 ├── docs/               # 기획안 및 아키텍처 다이어그램
 └── README.md
+```
 
 ---
-
 > 💡 **Project Contact & Author** > - **YONG (Yongrim Cho)** | 📧 limetry2392@gmail.com
