@@ -1,6 +1,5 @@
 # Beyond Smart Factory
-## 사람까지 이해하는 스마트팩토리
-### 실시간 작업자 데이터 기반 AI 의사결정 플랫폼
+## 사람까지 이해하는 스마트팩토리 : 실시간 작업자 데이터 기반 AI 의사결정 플랫폼
 > **Human-Centric Smart Factory with AWS Serverless & Medallion Architecture**
 
 본 프로젝트는 수작업 의존도가 높은 노동 집약적 제조 현장을 위해 설계된 **실시간 데이터 파이프라인 및 지능형 의사결정 지원 시스템**입니다. 단순 관제를 넘어 작업자의 피로도와 설비 상태를 실시간으로 분석하여 사고를 예방하고 공정 배치를 최적화하는 '선제적 대응(Prescriptive)' 플랫폼을 지향합니다.
