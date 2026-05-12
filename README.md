@@ -82,3 +82,10 @@
 │   # 클라이언트 요청을 받아 Aurora DB 및 S3 데이터를 조회·가공하여 반환
 ├── docs/               # 기획안 및 아키텍처 다이어그램
 └── README.md
+
+---
+
+## 🔗 Other Link
+[Notion]([https://drive.google.com/file/d/1xm1O9PbyzdicAZqnCw4m8yZFMN8BK1_-/view?usp=sharing](https://www.notion.so/personal-project-35dc634a7dad806993bdf884e0669aaa?source=copy_link))
+
+---
