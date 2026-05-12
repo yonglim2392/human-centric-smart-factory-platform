@@ -86,6 +86,5 @@
 ---
 ## 🔗 Other Link
 ---
-[Notion](https://www.notion.so/personal-project-35dc634a7dad806993bdf884e0669aaa?source=copy_link
-
+[Notion](https://www.notion.so/personal-project-35dc634a7dad806993bdf884e0669aaa?source=copy_link)
 ---
