@@ -116,3 +116,4 @@
 
 ---
 > 💡 **Project Contact & Author** > - **YONG (Yongrim Cho)** | 📧 limetry2392@gmail.com
+> [Notion](https://www.notion.so/35dc634a7dad807884b6e6b2f4472992?source=copy_link)
