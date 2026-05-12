@@ -150,9 +150,9 @@ resource "aws_ecs_service" "producer_service" {
   depends_on = [aws_rds_cluster_instance.factory_instance]
 
   network_configuration {
-    subnets          = [aws_subnet.public_1.id, aws_subnet.public_2.id]
-    security_groups  = [aws_security_group.rds_sg.id]
-    assign_public_ip = true
+    subnets          = [aws_subnet.private_app_a.id, aws_subnet.private_app_c.id]
+    security_groups  = [aws_security_group.rds_sg.id] # (추후 보안그룹 분리 작업 시 수정 필요)
+    assign_public_ip = false
   }
 }
 

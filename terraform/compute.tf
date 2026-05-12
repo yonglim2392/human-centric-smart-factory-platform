@@ -58,6 +58,12 @@ resource "aws_lambda_function" "realtime_detector" {
       TZ          = "Asia/Seoul"
     }
   }
+
+  vpc_config {
+    subnet_ids         = [aws_subnet.private_app_a.id, aws_subnet.private_app_c.id]
+    security_group_ids = [aws_security_group.streaming_lambda_sg.id]
+  }
+
   layers = [aws_lambda_layer_version.factory_common_layer.arn]
 }
 
@@ -91,6 +97,12 @@ resource "aws_lambda_function" "hourly_aggregator" {
       TZ          = "Asia/Seoul"
     }
   }
+
+  vpc_config {
+    subnet_ids         = [aws_subnet.private_app_a.id, aws_subnet.private_app_c.id]
+    security_group_ids = [aws_security_group.streaming_lambda_sg.id]
+  }
+  
   layers = [
     "arn:aws:lambda:ap-northeast-2:336392948345:layer:AWSSDKPandas-Python312:24",
     aws_lambda_layer_version.factory_common_layer.arn
@@ -298,7 +310,7 @@ resource "aws_lambda_function" "data_archiver" {
   ]
 }
 
-# CloudWatch Metrics 조회 권한 추가
+# CloudWatch Metrics
 resource "aws_iam_role_policy" "lambda_cloudwatch_read_policy" {
   name = "lambda_cloudwatch_read_policy"
   role = aws_iam_role.lambda_exec_role.id
@@ -318,7 +330,6 @@ resource "aws_iam_role_policy" "lambda_cloudwatch_read_policy" {
   })
 }
 
-# ETL 모니터링 람다 생성
 resource "aws_lambda_function" "etl_metrics_api" {
   filename         = data.archive_file.lambda_zip.output_path
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
@@ -329,9 +340,6 @@ resource "aws_lambda_function" "etl_metrics_api" {
   timeout          = 30
 }
 
-# =================================================================
-# API 백엔드 람다를 위한 추가 IAM 권한 (SQS 수신, Athena, Glue, CE)
-# =================================================================
 resource "aws_iam_role_policy" "api_backend_extra_policy" {
   name = "api_backend_extra_policy"
   role = aws_iam_role.lambda_exec_role.id
@@ -339,7 +347,6 @@ resource "aws_iam_role_policy" "api_backend_extra_policy" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      # 1. DLQ(SQS) 메시지 조회 및 삭제 권한
       {
         Effect = "Allow"
         Action = [
@@ -349,7 +356,7 @@ resource "aws_iam_role_policy" "api_backend_extra_policy" {
         ]
         Resource = aws_sqs_queue.lambda_dlq.arn
       },
-      # 2. ★ 신규: DLQ 재처리를 위해 Kinesis에 데이터를 다시 밀어넣을 권한
+
       {
         Effect = "Allow"
         Action = [
@@ -358,7 +365,7 @@ resource "aws_iam_role_policy" "api_backend_extra_policy" {
         ]
         Resource = aws_kinesis_stream.factory_logs_stream.arn
       },
-      # 3. Athena 쿼리 실행 권한
+
       {
         Effect = "Allow"
         Action = [
@@ -368,7 +375,7 @@ resource "aws_iam_role_policy" "api_backend_extra_policy" {
         ]
         Resource = "*"
       },
-      # 4. Athena가 사용할 Glue 데이터 카탈로그 접근 권한
+
       {
         Effect = "Allow"
         Action = [
@@ -380,7 +387,7 @@ resource "aws_iam_role_policy" "api_backend_extra_policy" {
         ]
         Resource = "*"
       },
-      # 5. Athena 쿼리 결과를 S3에 쓰고 읽기 위한 권한
+
       {
         Effect = "Allow"
         Action = [
@@ -396,7 +403,7 @@ resource "aws_iam_role_policy" "api_backend_extra_policy" {
           "${aws_s3_bucket.raw_data_bucket.arn}/*"
         ]
       },
-      # 6. ★ 신규: S3에 암호화해서 저장하기 위한 KMS 생성 권한
+
       {
         Effect = "Allow"
         Action = [
@@ -405,7 +412,7 @@ resource "aws_iam_role_policy" "api_backend_extra_policy" {
         ]
         Resource = aws_kms_key.ecr_kms_key.arn
       },
-      # 7. Cost Explorer(AWS 비용) 조회 권한
+
       {
         Effect = "Allow"
         Action = [

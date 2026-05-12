@@ -11,6 +11,23 @@ resource "aws_glue_catalog_table" "factory_logs_parquet" {
     "classification" = "parquet"
   }
 
+  partition_keys { 
+    name = "year"
+    type = "string" 
+  }
+  partition_keys { 
+    name = "month"
+    type = "string" 
+  }
+  partition_keys { 
+    name = "day"
+    type = "string" 
+  }
+  partition_keys { 
+    name = "hour"
+    type = "string" 
+  }
+
   storage_descriptor {
     location      = "s3://${aws_s3_bucket.raw_data_bucket.bucket}/"
     input_format  = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
@@ -24,7 +41,6 @@ resource "aws_glue_catalog_table" "factory_logs_parquet" {
       }
     }
 
-    # 정제된 JSON 데이터의 스키마 정의
     columns {
       name = "worker_id"
       type = "string"
@@ -118,6 +134,9 @@ resource "aws_kinesis_firehose_delivery_stream" "s3_delivery" {
     custom_time_zone = "Asia/Seoul"
     buffering_interval = 300
     buffering_size     = 64
+
+    prefix              = "data/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/"
+    error_output_prefix = "error/!{firehose:error-output-type}/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
 
     processing_configuration {
       enabled = true
@@ -287,13 +306,29 @@ resource "aws_athena_workgroup" "factory_analytics" {
   }
 }
 
-# 아카이빙된 데이터를 조회하기 위한 외부 테이블 (Glue)
 resource "aws_glue_catalog_table" "archived_hourly_stats" {
   name          = "archived_hourly_stats"
   database_name = aws_glue_catalog_database.factory_data_lake.name
   table_type    = "EXTERNAL_TABLE"
 
   parameters = { "classification" = "parquet" }
+
+  partition_keys { 
+    name = "year"
+    type = "string" 
+  }
+  partition_keys { 
+    name = "month"
+    type = "string" 
+  }
+  partition_keys { 
+    name = "day"
+    type = "string" 
+  }
+  partition_keys { 
+    name = "hour"
+    type = "string" 
+  }
 
   storage_descriptor {
     location      = "s3://${aws_s3_bucket.raw_data_bucket.bucket}/archive/hourly_stats/"
@@ -359,4 +394,34 @@ resource "aws_iam_role_policy" "lambda_sqs_dlq_policy" {
       }
     ]
   })
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "raw_data_lifecycle" {
+  bucket = aws_s3_bucket.raw_data_bucket.id
+  rule {
+    id     = "archive_to_ia_and_glacier"
+    status = "Enabled"
+    filter {}
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+    transition {
+      days          = 90
+      storage_class = "GLACIER"
+    }
+  }
+}
+
+resource "aws_security_group" "streaming_lambda_sg" {
+  name   = "scada-streaming-lambda-sg"
+  vpc_id = aws_vpc.factory_vpc.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = { Name = "scada-streaming-lambda-sg" }
 }
