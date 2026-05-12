@@ -1,4 +1,3 @@
-# Beyond Smart Factory
 ## 사람까지 이해하는 스마트팩토리 : 실시간 작업자 데이터 기반 AI 의사결정 플랫폼
 > **Human-Centric Smart Factory with AWS Serverless & Medallion Architecture**
 
@@ -116,4 +115,5 @@
 
 ---
 > 💡 **Project Contact & Author** > - **YONG (Yongrim Cho)** | 📧 limetry2392@gmail.com
-> [Notion](https://www.notion.so/35dc634a7dad807884b6e6b2f4472992?source=copy_link)
+> 
+> 💡 **Other Link** : [Notion](https://www.notion.so/35dc634a7dad807884b6e6b2f4472992?source=copy_link) (Development Objectives)
