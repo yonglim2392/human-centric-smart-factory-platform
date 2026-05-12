@@ -9,9 +9,9 @@
 ---
 ### 🎯 Demo Checkpoints
 
-  ✅ **Point 1. 무결성 보장 데이터 파이프라인** *(Zero Data Loss)*
-  ✅ **Point 2. 예측형 인력 최적화** *(Predictive Optimization)*
-  ✅ **Point 3. 비용 효율적 분석 환경** *(Serverless & FinOps)*
+- ✅ **Point 1. 무결성 보장 데이터 파이프라인** *(Zero Data Loss)*
+- ✅ **Point 2. 예측형 인력 최적화** *(Predictive Optimization)*
+- ✅ **Point 3. 비용 효율적 분석 환경** *(Serverless & FinOps)*
 
 ---
 ## 🎯 Key Achievements
